@@ -25,7 +25,7 @@ A **container** runs _natively_ on Linux and shares the kernel of the host machi
 
 By contrast, a **virtual machine** (VM) runs a full-blown “guest” operating system with virtual access to host resources through a hypervisor. In general, VMs provide an environment with more resources than most applications need.
 
-<img width="300" src="container-model.png" alt="">   <img width="300" src="vm-model.png" alt="">    
+<img width="300" src="imgs/container-model.png" alt="Diagram visualizing the relationship of a container to the host operating system; containers wrap application code and libraries, but rely on the Docker host for OS-level infrastructure (like OS libraries and an OS kernel).">   <img width="300" src="imgs/vm-model.png" alt="Diagram visualizing the relationship of a virtual machine (VM) to the host operating system; VMs contain application code, libraries, and an entire OS (including the kernel). The host runs a hypervisor that manages the guest VMs, and simulates the computer hardware to the VM operating systems.">    
 
 ## Prepare your Docker environment
 
@@ -132,4 +132,10 @@ Containerization makes [CI/CD](https://en.wikipedia.org/wiki/CI/CD) seamless. Fo
 * resource density can be optimized.
 
 With Docker, scaling your application is a matter of spinning up new executables, instead of running heavy VM hosts.
+
+## Next Steps
+
+1. **Orientation and setup** _(you are here)_
+2. [Containers](part_2.md)
+3. Services and Stacks
 

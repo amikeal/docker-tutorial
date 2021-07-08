@@ -162,7 +162,7 @@ Go to that URL in a web browser to see the display content served up on a web pa
 You can also use the curl command in a shell to view the same content.
 
 ```bash
-$ curl http://localhost:4000 (Links to an external site.)
+$ curl http://localhost
 
 <h3>Hello World!</h3><b>Hostname:</b> 8fc990912a14<br/><b>Visits...
 ```
@@ -190,7 +190,7 @@ CONTAINER ID       IMAGE              COMMAND             CREATED
 1fa4ab2cf395       friendlyhello      "python app.py"     28 seconds ago
 ```
 
-Notice that **CONTAINER ID** matches what’s on [http://localhost/][http://localhost/] (the value won't be the same as what is shown here on this page, but your two values should match).
+Notice that **CONTAINER ID** matches what’s on [http://localhost](http://localhost) (the value won't be the same as what is shown here on this page, but your two values should match).
 
 Now use `docker container` stop to end the process, using the **CONTAINER ID**, like so:
 
@@ -207,7 +207,7 @@ A *registry* is a collection of repositories, and a repository is a collection o
 
 ### Log in with your Docker ID
 
-If you don’t have a Docker account, sign up for one at [hub.docker.com][]. Make note of your username.
+If you don’t have a Docker account, sign up for one at [hub.docker.com](https://hub.docker.com/). Make note of your username.
 
 Next, sign in to the Docker public registry on your local machine:
 

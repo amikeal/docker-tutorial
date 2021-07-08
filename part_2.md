@@ -1,6 +1,6 @@
-#2. Containers
+# 2. Containers
 
-##Introduction
+## Introduction
 
 It’s time to begin building an app the Docker way. We start at the bottom of the hierarchy of such an app, a *container*, which this section covers. Above this level is a service, which defines how containers behave in production, and covered in part 3. Finally, at the top level is the stack, defining the interactions of all the services, covered in part 4.
 
@@ -8,7 +8,7 @@ It’s time to begin building an app the Docker way. We start at the bottom of t
 * Services
 * **Container** (you are here)
 
-###Your new development environment
+### Your new development environment
 
 In the past, if you were to start writing a Python app, your first order of business was to install a Python runtime onto your machine. But, that creates a situation where the environment on your machine needs to be perfect for your app to run as expected, and also needs to precisely match your production environment.
 
@@ -16,11 +16,11 @@ With Docker, you can just grab a portable Python runtime as an image, no install
 
 These portable images are defined by something called a `Dockerfile`.
 
-###Define a container with `Dockerfile`
+### Define a container with `Dockerfile`
 
 `Dockerfile` defines what goes on in the environment inside your container. Access to resources like networking interfaces and disk drives is virtualized inside this environment, which is isolated from the rest of your system, so you need to map ports to the outside world, and be specific about what files you want to “copy in” to that environment. However, after doing that, you can expect that the build of your app defined in this `Dockerfile` behaves exactly the same wherever it runs.
 
-###`Dockerfile`
+### `Dockerfile`
 
 Create an empty directory on your local machine. Change directories (`cd`) into the new directory, create a file called `Dockerfile`, type the following content into that file, and save it. Take note of the comments that explain each statement in your new Dockerfile.
 
@@ -50,18 +50,18 @@ CMD ["python", "app.py"]
 This `Dockerfile` refers to a couple of files we haven’t created yet, namely `app.py` and `requirements.txt`. Let’s create those next.
 
 
-##The app itself
+## The app itself
 
 Create two more files, `requirements.txt` and `app.py`, and put them in the same folder with the `Dockerfile`. This completes our app, which as you can see is quite simple. When the above `Dockerfile` is built into an image, `app.py` and `requirements.txt` is present because of the `Dockerfile`'s `COPY` command, and the output from `app.py` is accessible to HTTP thanks to the `EXPOSE` command.
 
 
-###`requirements.txt`
+### `requirements.txt`
 ```
 Flask==1.1.2
 Redis
 ```
  
-###`app.py`
+### `app.py`
 ```python
 from flask import Flask
 from redis import Redis, RedisError
@@ -110,7 +110,7 @@ Now we see that `pip install -r requirements.txt` installs the Flask and Redis l
 That’s it! You don’t need Python or anything in `requirements.txt` on your computer, nor does building or running this image install them on your computer. It doesn’t seem like you’ve really set up an environment with Python and Flask, but you have.
 
 
-###Build the app
+### Build the app
 
 We are ready to build the app. Make sure you are still at the top level of your new directory. Here’s what ls should show:
 
@@ -134,7 +134,6 @@ $ docker build . -t friendlyhello
 
 > **NOTE**: _Don't forget the dot character (`.`) hiding in the middle! That's the argument to tell the build command to look into the current folder for the build instructions (i.e., the `Dockerfile`)._
 
-
 So where is the image that your command just built? It’s in your machine’s local Docker image registry:
 
 ```bash
@@ -144,11 +143,9 @@ REPOSITORY            TAG                 IMAGE ID
 friendlyhello         latest              326387cea398
 ```
 
-
 Note how the tag defaulted to `latest`. The full syntax for the tag option to specify version info would be something like `--tag=friendlyhello:v0.1`.
 
-
-###Run the app
+### Run the app
 
 Now it's time to run the app, mapping your host machine’s port 80 to the container’s published port 5000 using the `-p` option:
 
@@ -171,7 +168,6 @@ $ curl http://localhost:4000 (Links to an external site.)
 ```
 
 Let's recap: `docker build` creates a Docker _image_, and `docker run` takes an image and runs it, which creates a _container_.
- 
 
 This port remapping of 80:5000 demonstrates the difference between `EXPOSE` within the `Dockerfile` and what the publish value is set to when running `docker run -p`. In future steps in this tutorial, make sure to map port 80 on your host system (usually your laptop) to port 5000 on the container and use [http://localhost/](http://localhost/) to view your app.
 
@@ -202,14 +198,14 @@ Now use `docker container` stop to end the process, using the **CONTAINER ID**, 
 $ docker container stop 1fa4ab2cf395
 ```
 
-##Share your image
+## Share your image
 To demonstrate the portability of what we just created, let’s upload our built image and run it somewhere else. After all, you need to know how to push to registries if you want to deploy containers to production.
 
 A *registry* is a collection of repositories, and a repository is a collection of images—sort of like a GitHub repository, except the code is already built. An account on a registry can create many repositories. The docker CLI uses Docker’s public registry by default.
 
 > **NOTE**: _We use Docker’s public registry here just because it’s free and pre-configured, but there are many public ones to choose from, and you can even set up your own private registry using [Docker Registry](https://docs.docker.com/registry/)._
 
-###Log in with your Docker ID
+### Log in with your Docker ID
 
 If you don’t have a Docker account, sign up for one at [hub.docker.com][]. Make note of your username.
 
@@ -220,7 +216,7 @@ $ docker login
 ```
  
 
-###Tag the image
+### Tag the image
 
 The notation for associating a local image with a repository on a registry is `username/repository:tag`. The tag is optional, but recommended, since it is the mechanism that registries use to give Docker images a version. Give the repository and tag meaningful names for the context, such as `docker-tutorial:part2`. This puts the image in the `docker-tutorial` repository and tags it as `part2`.
 
@@ -248,7 +244,7 @@ python                 3.8-slim        1c7128a655f6        5 days ago          1
   ...
 ```
 
-###Publish the image
+### Publish the image
 
 Now it's time to actually upload your tagged image to the repository (make sure you've signed in to Docker Hub with docker login!)
 
@@ -259,7 +255,7 @@ $ docker push <username>/docker-tutorial:part2
 Once complete, the results of this upload are publicly available. If you log in to [Docker Hub](https://hub.docker.com/), you see the new image there, with its pull command.
 
 
-###Pull and run the image from the remote repository
+### Pull and run the image from the remote repository
 
 From now on, you can use docker run to run your app on any machine with this command:
 
@@ -290,21 +286,21 @@ Status: Downloaded newer image for andem/docker-tutorial:part2
 No matter where docker run executes, it pulls your image, along with Python and all the dependencies from `requirements.txt`, and runs your code. It all travels together in a neat little package, and you don’t need to install anything on the host machine for Docker to run it.
 
 
-###Conclusion of part two
+### Conclusion of part two
 
 That’s all for this stage. In the next section, we learn how to scale our application by running this container in a **service**.
 
  
 
-##Recap and cheat sheet
+## Recap and cheat sheet
 Here is a list of the basic Docker commands from this page, and some related ones if you’d like to explore a bit before moving on.
 
 ```bash
 docker build -t friendlyhello .  # Create image using this directory's Dockerfile
 
-docker run -p 4000:80 friendlyhello  # Run "friendlyname" mapping port 4000 to 80
+docker run -p 80:5000 friendlyhello  # Run "friendlyname" mapping port 80 to 5000
 
-docker run -d -p 4000:80 friendlyhello         # Same thing, but in detached mode
+docker run -d -p 80:5000 friendlyhello         # Same thing, but in detached mode
 
 docker container ls                                 # List all running containers
 

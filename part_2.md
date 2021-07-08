@@ -157,7 +157,7 @@ You should see a message that Python is serving your app at `http://0.0.0.0:5000
 
 Go to that URL in a web browser to see the display content served up on a web page:
 
-<img width="500" src="browser-screenshot.png" alt="An image of a Chrome web browser displaying the results of the running app">
+<img width="500" src="img/browser-screenshot.png" alt="An image of a Chrome web browser displaying the results of the running app">
 
 You can also use the curl command in a shell to view the same content.
 
@@ -329,3 +329,9 @@ docker push username/repository:tag             # Upload tagged image to registr
 docker run username/repository:tag                    # Run image from a registry
 
 ```
+
+## Next Steps
+
+1. [Orientation and setup](part_1.md)
+2. **Containers** _(you are here)_
+3. Services and Stacks

@@ -136,7 +136,7 @@ $ docker build . -t friendlyhello
 
 So where is the image that your command just built? It’s in your machine’s local Docker image registry:
 
-```bash
+```
 $ docker image ls
 
 REPOSITORY            TAG                 IMAGE ID
@@ -149,7 +149,7 @@ Note how the tag defaulted to `latest`. The full syntax for the tag option to sp
 
 Now it's time to run the app, mapping your host machine’s port 80 to the container’s published port 5000 using the `-p` option:
 
-```bash
+```
 $ docker run -p 80:5000 friendlyhello
 ```
  
@@ -177,13 +177,13 @@ Hit `CTRL+C` in your terminal to quit the running container.
 
 Now let’s run the app in the background, in detached mode:
 
-```bash
+```
 $ docker run -d -p 80:5000 friendlyhello
 ```
  
 You get the long container ID for your app and then are kicked back to your terminal. Your container is now running in the background. You can also see the abbreviated container ID with `docker container ls` (and both work interchangeably when running commands):
 
-```bash
+```
 $ docker container ls
 
 CONTAINER ID       IMAGE              COMMAND             CREATED
@@ -194,7 +194,7 @@ Notice that **CONTAINER ID** matches what’s on [http://localhost](http://local
 
 Now use `docker container` stop to end the process, using the **CONTAINER ID**, like so:
 
-```bash
+```
 $ docker container stop 1fa4ab2cf395
 ```
 
@@ -211,7 +211,7 @@ If you don’t have a Docker account, sign up for one at [hub.docker.com](https:
 
 Next, sign in to the Docker public registry on your local machine:
 
-```bash
+```
 $ docker login
 ```
  
@@ -222,19 +222,19 @@ The notation for associating a local image with a repository on a registry is `u
 
 Now, put it all together to tag the image. Run `docker tag <image>` with your username, repository, and tag names so that the image uploads to your desired destination. The syntax of the command is:
 
-```bash
+```
 $ docker tag <image> username/repository:tag
 ```
  
 For example:
 
-```bash
+```
 $ docker tag friendlyhello andem/docker-tutorial:part2
 ```
 
-Now use `docker image ls` see your newly tagged image:
+Now use `docker image ls` to see your newly tagged image:
 
-```bash
+```
 $ docker image ls
 
 REPOSITORY             TAG             IMAGE ID            CREATED             SIZE
@@ -248,7 +248,7 @@ python                 3.8-slim        1c7128a655f6        5 days ago          1
 
 Now it's time to actually upload your tagged image to the repository (make sure you've signed in to Docker Hub with docker login!)
 
-```bash
+```
 $ docker push <username>/docker-tutorial:part2
 ```
 
@@ -259,14 +259,14 @@ Once complete, the results of this upload are publicly available. If you log in 
 
 From now on, you can use docker run to run your app on any machine with this command:
 
-```bash
+```
 $ docker run -p 80:5000 <username>/docker-tutorial:part2
 ```
  
 If the image isn’t already available locally on the machine, Docker pulls it from the repository:
 
-```bash
-$ docker run -p 4000:80 andem/docker-tutorial:part2
+```
+$ docker run -p 80:5000 andem/docker-tutorial:part2
 
 Unable to find image 'andem/docker-tutorial:part2' locally
 part2: Pulling from andem/docker-tutorial
@@ -280,7 +280,7 @@ fbccdcced46e: Already exists
 Digest: sha256:0601c866aab2adcc6498200efd0f754037e909e5fd42069adeff72d1e2439068
 
 Status: Downloaded newer image for andem/docker-tutorial:part2
- * Running on http://0.0.0.0:80/ (Press CTRL+C to quit)
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 ```
  
 No matter where docker run executes, it pulls your image, along with Python and all the dependencies from `requirements.txt`, and runs your code. It all travels together in a neat little package, and you don’t need to install anything on the host machine for Docker to run it.

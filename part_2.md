@@ -286,13 +286,13 @@ Status: Downloaded newer image for andem/docker-tutorial:part2
 No matter where docker run executes, it pulls your image, along with Python and all the dependencies from `requirements.txt`, and runs your code. It all travels together in a neat little package, and you don’t need to install anything on the host machine for Docker to run it.
 
 
-### Conclusion of part two
+## Conclusion of part two
 
 That’s all for this stage. In the next section, we learn how to scale our application by running this container in a **service**.
 
  
 
-## Recap and cheat sheet
+### Recap and cheat sheet
 Here is a list of the basic Docker commands from this page, and some related ones if you’d like to explore a bit before moving on.
 
 ```bash
